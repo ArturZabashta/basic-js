@@ -12,12 +12,12 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function getSeason(date) {
-  if (
+  if (date === undefined) return 'Unable to determine the time of year!';
+  /*if (
     typeof date === 'string' ||
     typeof date === 'number' ||
     typeof date === Array ||
-    typeof date === null ||
-    typeof date === undefined
+    date === null    
   ) {
     try {
       throw {
@@ -26,17 +26,27 @@ function getSeason(date) {
       };
     } catch (ex) {
       return ex.message;
-    }
-  } else {
-    let monthnum = date.getMonth();
-    if (monthnum === 2 || monthnum === 3 || monthnum === 4) return 'spring';
-    if (monthnum === 5 || monthnum === 6 || monthnum === 7) return 'summer';
-    if (monthnum === 8 || monthnum === 9 || monthnum === 10)
-      return 'autumn (fall)';
-    if (monthnum === 11 || monthnum === 0 || monthnum === 1) return 'winter';
-  }
+    }*/
 
-}
+    if (isNaN(Date.parse(date))) {throw new Error('Invalid date!');
+  } else {
+
+    let monthNum = date.getMonth();    
+    let dateNum = date.getDate();
+
+
+    console.log('monthNum = ', monthNum, '  dateNum=', dateNum);
+
+    if (monthNum === 2 && dateNum <= 31 || monthNum === 3 && dateNum <= 30 || monthNum === 4 && dateNum<=31) {return 'spring';
+    }else if (monthNum === 5 && dateNum <= 30 || monthNum === 6 && dateNum <= 31 || monthNum === 7 && dateNum <= 31) {return 'summer';
+      }else if (monthNum === 8 && dateNum <= 30 || monthNum === 9 && dateNum <= 31 || monthNum === 10 && dateNum <= 30) {
+      return 'autumn (fall)';
+        }else if (monthNum === 11 && dateNum <= 31 || monthNum === 0 && dateNum <= 31 || monthNum === 1 && dateNum <= 28) {return 'winter';
+          } else throw new Error('Invalid date!');
+
+
+
+}}
 
 module.exports = {
   getSeason
