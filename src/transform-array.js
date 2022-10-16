@@ -13,41 +13,49 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
+
+ function getClass(obj) {
+  return {}.toString.call(obj).slice(8, -1);
+}
 function transform(arr) {
-  let newarr = [];
-  if (!Array.isArray(arr))
-    return 'arr parameter must be an instance of the Array!';
-  else {
-    for (let i = 0; i < arr.length; i++) {
-      let s = arr[i];
-      switch (s) {
+  console.log(arr);
+  let startArr = [];
+if (getClass(arr)!=='Array') {
+throw new Error("'arr' parameter must be an instance of the Array!");
+ return ;
+} else {
+  let checkArr = Array.from(arr)
+  startArr = arr.reduce((accArr, elem, i, arr) => {
+      switch (elem) {
         case '--discard-next':
-          i++;
+            if (checkArr[i+1] && checkArr[i+1] !== null) checkArr[i+1] = null;
           break;
         case '--discard-prev':
-          if (newarr.length >= 1) {
-            newarr.pop();
+            if (checkArr[i-1] && checkArr[i-1] !== null) {checkArr[i-1] = null;
+            accArr.pop();
             break;
           } else break;
         case '--double-next':
-          if (i <= arr.length - 2) {
-            newarr.push(arr[i + 1], arr[i + 1]);
-            i++;
+            if (checkArr[i+1] && checkArr[i+1] !== null) {
+            accArr.push(checkArr[i + 1]);                
             break;
           } else break;
         case '--double-prev':
-          if (i >= 1) {
-            newarr.push(arr[i - 1], arr[i - 1]);
+            if (checkArr[i-1]  && checkArr[i-1] !== null) {
+                accArr.push(accArr[accArr.length - 1]);
             break;
           } else break;
-        default:
-          newarr.push(arr[i]);
+        default:{
+            if (checkArr[i] !== null) accArr.push(arr[i]);
+        }
       }
-    }
+      
+      return accArr
+  }, []);
+
+  return startArr;
+
   }
-
-  return newarr;
-
 }
 
 module.exports = {
