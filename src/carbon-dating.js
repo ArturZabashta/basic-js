@@ -17,10 +17,22 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+
+ function getClass(obj) {
+  return {}.toString.call(obj).slice(8, -1);
 }
+
+function dateSample(sampleActivity) {
+  //throw new NotImplementedError('Not implemented');
+  // remove line with error and write your code here
+
+  if (getClass(sampleActivity) !== "String")
+  return false;
+  else if (Number(sampleActivity) > 0 && Number(sampleActivity) <= MODERN_ACTIVITY) 
+    return Math.ceil((Math.log(MODERN_ACTIVITY / Number(sampleActivity)) * HALF_LIFE_PERIOD) / 0.693);
+  return false;
+    }
+
 
 module.exports = {
   dateSample
