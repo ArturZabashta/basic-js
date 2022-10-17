@@ -25,8 +25,7 @@ function getSeason(date) {
     let monthNum = date.getMonth();    
     let dateNum = date.getDate();
 
-
-    console.log('monthNum = ', monthNum, '  dateNum=', dateNum);
+    //console.log('monthNum = ', monthNum, '  dateNum=', dateNum);
 
     if (monthNum === 2 && dateNum <= 31 || monthNum === 3 && dateNum <= 30 || monthNum === 4 && dateNum<=31) {return 'spring';
     }else if (monthNum === 5 && dateNum <= 30 || monthNum === 6 && dateNum <= 31 || monthNum === 7 && dateNum <= 31) {return 'summer';

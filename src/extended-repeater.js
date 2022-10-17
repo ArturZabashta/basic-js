@@ -16,51 +16,38 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function repeater(str, options) {
-  let newstr = str + '';
-  let additionstring = '';
-  let realstring = '';
-  let newstring = '';
-  let newadditionstring = '';
+  let inputString = String(str);
+    let inputOptins = Object.assign(options);
+    //console.log('inputOptins', inputOptins);
+   
+    let {repeatTimes, separator, addition, additionRepeatTimes, additionSeparator} = inputOptins;
+    
+    if (repeatTimes === undefined) repeatTimes=1;
+    if (additionRepeatTimes === undefined) additionRepeatTimes=1;
+    if (separator === undefined) separator = '+';
+    if (additionSeparator === undefined) additionSeparator='|';
+    if (addition === undefined) addition='';
+    
+    addition = String(addition);
 
-  if (!('separator' in options)) {
-    options['separator'] = '+';
-  }
+    //console.log('checked inputOptins',repeatTimes, separator, addition, additionRepeatTimes, additionSeparator);
 
-  if ('addition' in options && !('additionSeparator' in options))
-    options['additionSeparator'] = '|';
-  else {
-    if (!('addition' in options)) {
-      options['additionRepeatTimes'] = 0;
+    let newAdditionArray = [];
+
+    for (let i = 1; i <= additionRepeatTimes;  i++) {
+      newAdditionArray.push(addition);
     }
-  }
-
-  if (options['additionRepeatTimes'] > 1) {
-    for (let i = 0; i < options['additionRepeatTimes']; i++) {
-      newadditionstring += options['addition'] + options['additionSeparator'];
+    let newAdditionString = newAdditionArray.join(additionSeparator);
+    let outputStringPart = inputString + newAdditionString;
+    //console.log('outputStringPart=', outputStringPart);
+    let newStringArray = [];
+    for (let i = 1; i <= repeatTimes;  i++) {
+      newStringArray.push(outputStringPart);
     }
-    let o = options['additionSeparator'].length;
-    let p = newadditionstring.length;
-    let r = p - o;
-    additionstring = newadditionstring.substr(0, r);
-  } else additionstring = options['addition'];
-
-  if (additionstring.length > 0 && 'repeatTimes' in options) {
-    for (let n = 0; n < options['repeatTimes']; n++) {
-      realstring += newstr + additionstring + options['separator'];
-    }
-  } else {
-    if ('repeatTimes' in options) {
-      for (let n = 0; n < options['repeatTimes']; n++)
-        realstring += newstr + options['separator'];
-    } else realstring += newstr;
-  }
-  let x = options['separator'].length;
-  let y = realstring.length;
-  let z = y - x;
-
-  newstring = realstring.substr(0, z);
-
-  return newstring;
+    let outputString = newStringArray.join(separator);
+    //console.log('outputString=', outputString);
+      
+    return outputString;
 }
 
 module.exports = {

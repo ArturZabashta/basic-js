@@ -18,8 +18,8 @@ const { NotImplementedError } = require('../extensions/index.js');
   return {}.toString.call(obj).slice(8, -1);
 }
 function transform(arr) {
-  console.log(arr);
-  let startArr = [];
+ 
+let startArr = [];
 if (getClass(arr)!=='Array') {
 throw new Error("'arr' parameter must be an instance of the Array!");
  return ;

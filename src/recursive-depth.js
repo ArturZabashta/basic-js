@@ -14,7 +14,6 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 
  function calculateDepthOutlet(arr) {
-  console.log(arr);
   let count = 1;
 
   for (let i = 0; i < arr.length; i++) {
