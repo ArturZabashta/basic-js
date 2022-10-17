@@ -21,17 +21,17 @@ function renameFiles(names) {
 
   const memory = {};
     const outputNames = [];
-    //let  count = 1;
+    
     names.forEach((name) => {
         if (!(name in memory)) {
             memory[name] = 1;
             outputNames.push(name);
-            //count += 1;
+            
         } else {
             memory[`${name}(${memory[name]})`] = 1
             outputNames.push(`${name}(${memory[name]})`);
             memory[name] += 1;
-            //count += 1;
+            
         }
         
     })
