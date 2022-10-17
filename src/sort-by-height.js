@@ -22,7 +22,7 @@ function sortByHeight(arr) {
     return num !== -1;
 })
 memoryArr.sort(compare);
-console.log('memoryArr = ', memoryArr);
+
 const outputArr = arr.map((num) => {
 if (num !== -1) return memoryArr.shift()
 else return -1;
